@@ -25,49 +25,19 @@ def generate_launch_description():
         ]
     )
 
-    joint_state_publisher_node = Node(
-        package='joint_state_publisher',
-        executable='joint_state_publisher',
-        name='joint_state_publisher'
-    )
+    gazebo = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([os.path.join(
+            get_package_share_directory('gazebo_ros'), 'launch', 'gazebo.launch.py')])
+        )
 
-    gazebo_server = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource([
-            PathJoinSubstitution([
-                FindPackageShare('gazebo_ros'),
-                'launch',
-                'gzserver.launch.py'
-            ])
-        ]),
-        launch_arguments={
-            'pause': 'true'
-        }.items()
-    )
+    spawn_entity = Node(package='gazebo_ros', executable='spawn_entity.py',
+        arguments=['-topic', 'robot_description',
+                    '-entity', 'mecanum_robot'],
+        output='screen')
 
-    gazebo_client = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource([
-            PathJoinSubstitution([
-                FindPackageShare('gazebo_ros'),
-                'launch',
-                'gzclient.launch.py'
-            ])
-        ])
-    )
-
-    urdf_spawn_node = Node(
-        package='gazebo_ros',
-        executable='spawn_entity.py',
-        arguments=[
-            '-entity', 'four_drive_mecanum_robot',
-            '-topic', 'robot_description'
-        ],
-        output='screen'
-    )
 
     return LaunchDescription([
         robot_state_publisher_node,
-        joint_state_publisher_node,
-        gazebo_server,
-        gazebo_client,
-        urdf_spawn_node,
+        gazebo,
+        spawn_entity,
     ])
