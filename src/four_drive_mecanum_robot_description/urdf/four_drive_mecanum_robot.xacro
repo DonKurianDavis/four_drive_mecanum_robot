@@ -1,0 +1,195 @@
+<?xml version="1.0" ?>
+<robot name="four_drive_mecanum_robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:include filename="$(find four_drive_mecanum_robot_description)/urdf/materials.xacro" />
+<xacro:include filename="$(find four_drive_mecanum_robot_description)/urdf/four_drive_mecanum_robot.trans" />
+<xacro:include filename="$(find four_drive_mecanum_robot_description)/urdf/four_drive_mecanum_robot.gazebo" />
+<link name="base_link">
+  <inertial>
+    <origin xyz="0.1565398920687127 -0.004788955871560701 0.030358758115536476" rpy="0 0 0"/>
+    <mass value="43.71464533998368"/>
+    <inertia ixx="1.998681" iyy="0.98793" izz="2.531812" ixy="-0.008367" iyz="-0.003455" ixz="-0.003863"/>
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find four_drive_mecanum_robot_description)/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find four_drive_mecanum_robot_description)/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="front_left_wheel_1">
+  <inertial>
+    <origin xyz="0.042583798412730745 -1.4339203141533474e-07 3.450111268538114e-06" rpy="0 0 0"/>
+    <mass value="6.195492949588099"/>
+    <inertia ixx="0.039964" iyy="0.022937" izz="0.022937" ixy="-0.0" iyz="-0.0" ixz="1e-06"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.345938 0.254962 0.053172" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find four_drive_mecanum_robot_description)/meshes/front_left_wheel_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.345938 0.254962 0.053172" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find four_drive_mecanum_robot_description)/meshes/front_left_wheel_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="lidar_1">
+  <inertial>
+    <origin xyz="-4.4262982168419285e-11 -3.428023143126069e-11 0.012500303766958043" rpy="0 0 0"/>
+    <mass value="0.6512177959195155"/>
+    <inertia ixx="0.000206" iyy="0.000206" izz="0.000344" ixy="-0.0" iyz="0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.1495 0.009 -0.181125" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find four_drive_mecanum_robot_description)/meshes/lidar_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.1495 0.009 -0.181125" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find four_drive_mecanum_robot_description)/meshes/lidar_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="camera_link_1">
+  <inertial>
+    <origin xyz="-0.04750630918678708 -0.015024630338028797 1.256722554077161e-07" rpy="0 0 0"/>
+    <mass value="0.8360165625360608"/>
+    <inertia ixx="0.000122" iyy="0.001047" izz="0.001049" ixy="0.0" iyz="-0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.198 0.074 -0.174407" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find four_drive_mecanum_robot_description)/meshes/camera_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.198 0.074 -0.174407" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find four_drive_mecanum_robot_description)/meshes/camera_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="front_right_wheel_1">
+  <inertial>
+    <origin xyz="-0.04258379847145508 -1.4339203141533474e-07 3.450111268801792e-06" rpy="0 0 0"/>
+    <mass value="6.1954929495881"/>
+    <inertia ixx="0.039964" iyy="0.022937" izz="0.022937" ixy="0.0" iyz="-0.0" ixz="-1e-06"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.044938 0.254962 0.053172" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find four_drive_mecanum_robot_description)/meshes/front_right_wheel_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0.044938 0.254962 0.053172" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find four_drive_mecanum_robot_description)/meshes/front_right_wheel_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="rear_left_wheel_1">
+  <inertial>
+    <origin xyz="0.042583798412730745 1.4339203141533474e-07 3.4501112687046476e-06" rpy="0 0 0"/>
+    <mass value="6.1954929495881"/>
+    <inertia ixx="0.039964" iyy="0.022937" izz="0.022937" ixy="0.0" iyz="0.0" ixz="1e-06"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.345938 -0.254962 0.053172" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find four_drive_mecanum_robot_description)/meshes/rear_left_wheel_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.345938 -0.254962 0.053172" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find four_drive_mecanum_robot_description)/meshes/rear_left_wheel_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="rear_right_wheel_1">
+  <inertial>
+    <origin xyz="-0.04258379847145511 1.4339203141533474e-07 3.4501112686421975e-06" rpy="0 0 0"/>
+    <mass value="6.195492949588099"/>
+    <inertia ixx="0.039964" iyy="0.022937" izz="0.022937" ixy="-0.0" iyz="0.0" ixz="-1e-06"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.044938 -0.254962 0.053172" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find four_drive_mecanum_robot_description)/meshes/rear_right_wheel_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0.044938 -0.254962 0.053172" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find four_drive_mecanum_robot_description)/meshes/rear_right_wheel_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<joint name="front_left_joint" type="continuous">
+  <origin xyz="0.345938 -0.254962 -0.053172" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="front_left_wheel_1"/>
+  <axis xyz="1.0 0.0 0.0"/>
+</joint>
+
+<joint name="lidar_joint" type="continuous">
+  <origin xyz="0.1495 -0.009 0.181125" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="lidar_1"/>
+  <axis xyz="0.0 0.0 1.0"/>
+</joint>
+
+<joint name="camera_joint" type="fixed">
+  <origin xyz="0.198 -0.074 0.174407" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="camera_link_1"/>
+</joint>
+
+<joint name="front_right_joint" type="continuous">
+  <origin xyz="-0.044938 -0.254962 -0.053172" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="front_right_wheel_1"/>
+  <axis xyz="-1.0 0.0 0.0"/>
+</joint>
+
+<joint name="rear_left_joint" type="continuous">
+  <origin xyz="0.345938 0.254962 -0.053172" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="rear_left_wheel_1"/>
+  <axis xyz="1.0 0.0 0.0"/>
+</joint>
+
+<joint name="rear_right_joint" type="continuous">
+  <origin xyz="-0.044938 0.254962 -0.053172" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="rear_right_wheel_1"/>
+  <axis xyz="-1.0 0.0 0.0"/>
+</joint>
+
+</robot>
