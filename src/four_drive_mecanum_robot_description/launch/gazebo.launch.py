@@ -10,20 +10,10 @@ from ament_index_python.packages import get_package_share_directory
 
 
 def generate_launch_description():
-    share_dir = get_package_share_directory('four_drive_mecanum_robot_description')
-
-    xacro_file = os.path.join(share_dir, 'urdf', 'four_drive_mecanum_robot.xacro')
-    robot_description_config = xacro.process_file(xacro_file)
-    robot_urdf = robot_description_config.toxml()
-
-    robot_state_publisher_node = Node(
-        package='robot_state_publisher',
-        executable='robot_state_publisher',
-        name='robot_state_publisher',
-        parameters=[
-            {'robot_description': robot_urdf}
-        ]
-    )
+    robot_state_publisher = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([os.path.join(
+            get_package_share_directory('four_drive_mecanum_robot_description'), 'launch', 'bot.launch.py')])
+        )
 
     gazebo = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([os.path.join(
@@ -32,12 +22,20 @@ def generate_launch_description():
 
     spawn_entity = Node(package='gazebo_ros', executable='spawn_entity.py',
         arguments=['-topic', 'robot_description',
-                    '-entity', 'mecanum_robot'],
+                    '-entity', 'mecanum_robot',
+                    '-z','0.05'],
         output='screen')
 
+    mecanum_drive = Node(package='controller_manager', executable='spawner',
+                         arguments=['mecanum_drive'])
+    
+    joint_broad = Node(package='controller_manager', executable='spawner',
+                         arguments=['joint_broad'])
 
     return LaunchDescription([
-        robot_state_publisher_node,
+        robot_state_publisher,
         gazebo,
         spawn_entity,
+        mecanum_drive,
+        joint_broad
     ])
