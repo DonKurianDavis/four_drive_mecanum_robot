@@ -1,1 +1,0 @@
-/home/don/four_drive_mecanum_robot/src/four_drive_mecanum_robot_description/launch/bot.launch.py
