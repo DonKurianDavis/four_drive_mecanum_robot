@@ -2,7 +2,10 @@
 <robot name="four_drive_mecanum_robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
 <xacro:include filename="$(find four_drive_mecanum_robot_description)/urdf/materials.xacro" />
-<xacro:include filename="$(find four_drive_mecanum_robot_description)/urdf/ros2_control.xacro" />
+<xacro:include filename="$(find four_drive_mecanum_robot_description)/urdf/gazebo.xacro" />
+<!-- <xacro:include filename="$(find four_drive_mecanum_robot_description)/urdf/ros2_control.xacro" /> -->
+<xacro:property name="PI" value="3.1415926535897931"/>
+
 <link name="base_link">
   <inertial>
     <origin xyz="0.004788955754076288 0.006039892215565465 0.02035875811553353" rpy="0 0 0"/>
@@ -38,9 +41,10 @@
     <material name="silver"/>
   </visual>
   <collision>
-    <origin xyz="-0.254962 -0.195438 0.063172" rpy="0 0 0"/>
+    <origin xyz="0 0.04 0" rpy="${PI/2} 0 0"/>
     <geometry>
-      <mesh filename="file://$(find four_drive_mecanum_robot_description)/meshes/front_left_wheel.stl" scale="0.001 0.001 0.001"/>
+      <!-- <mesh filename="file://$(find four_drive_mecanum_robot_description)/meshes/front_left_wheel.stl" scale="0.001 0.001 0.001"/> -->
+      <cylinder radius="0.103" length="0.07798"/>
     </geometry>
   </collision>
 </link>
@@ -59,9 +63,10 @@
     <material name="silver"/>
   </visual>
   <collision>
-    <origin xyz="-0.254962 0.195438 0.063172" rpy="0 0 0"/>
+    <origin xyz="0 -0.04 0" rpy="${PI/2} 0 0"/>
     <geometry>
-      <mesh filename="file://$(find four_drive_mecanum_robot_description)/meshes/front_right_wheel.stl" scale="0.001 0.001 0.001"/>
+      <!-- <mesh filename="file://$(find four_drive_mecanum_robot_description)/meshes/front_left_wheel.stl" scale="0.001 0.001 0.001"/> -->
+      <cylinder radius="0.103" length="0.07798"/>
     </geometry>
   </collision>
 </link>
@@ -80,9 +85,10 @@
     <material name="silver"/>
   </visual>
   <collision>
-    <origin xyz="0.254962 -0.195438 0.063172" rpy="0 0 0"/>
+    <origin xyz="0 0.04 0" rpy="${PI/2} 0 0"/>
     <geometry>
-      <mesh filename="file://$(find four_drive_mecanum_robot_description)/meshes/rear_left_wheel.stl" scale="0.001 0.001 0.001"/>
+      <!-- <mesh filename="file://$(find four_drive_mecanum_robot_description)/meshes/front_left_wheel.stl" scale="0.001 0.001 0.001"/> -->
+      <cylinder radius="0.103" length="0.07798"/>
     </geometry>
   </collision>
 </link>
@@ -101,9 +107,10 @@
     <material name="silver"/>
   </visual>
   <collision>
-    <origin xyz="0.254962 0.195438 0.063172" rpy="0 0 0"/>
+    <origin xyz="0 -0.04 0" rpy="${PI/2} 0 0"/>
     <geometry>
-      <mesh filename="file://$(find four_drive_mecanum_robot_description)/meshes/rear_right_wheel.stl" scale="0.001 0.001 0.001"/>
+      <!-- <mesh filename="file://$(find four_drive_mecanum_robot_description)/meshes/front_left_wheel.stl" scale="0.001 0.001 0.001"/> -->
+      <cylinder radius="0.103" length="0.07798"/>
     </geometry>
   </collision>
 </link>
@@ -150,6 +157,14 @@
   </collision>
 </link>
 
+<joint name="camera_optical_joint" type="fixed">
+  <parent link="camera_link"/>
+  <child link="camera_color_frame"/>
+  <origin xyz="0.03 -0.0475 0.0" rpy="${-pi/2} 0 ${-pi/2}"/>
+</joint>
+
+<link name="camera_color_frame"></link>
+
 <joint name="front_left_joint" type="continuous">
   <origin xyz="0.254962 0.195438 -0.063172" rpy="0 0 0"/>
   <parent link="base_link"/>
@@ -178,7 +193,7 @@
   <axis xyz="0.0 1.0 0.0"/>
 </joint>
 
-<joint name="lidar_joint" type="continuous">
+<joint name="lidar_joint" type="fixed">
   <origin xyz="0.009 -0.001 0.171125" rpy="0 0 0"/>
   <parent link="base_link"/>
   <child link="lidar"/>

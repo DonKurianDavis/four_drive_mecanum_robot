@@ -10,10 +10,19 @@ from ament_index_python.packages import get_package_share_directory
 
 
 def generate_launch_description():
+    share_dir = get_package_share_directory('four_drive_mecanum_robot_description')
+    
     robot_state_publisher = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource([os.path.join(
-            get_package_share_directory('four_drive_mecanum_robot_description'), 'launch', 'bot.launch.py')])
+        PythonLaunchDescriptionSource([os.path.join(share_dir, 'launch', 'bot.launch.py')])
         )
+        
+    joint_state_publisher_node = Node(
+        package='joint_state_publisher',
+        executable='joint_state_publisher',
+        name='joint_state_publisher',
+        parameters=[
+            {'use_sim_time': True}]
+    )
 
     gazebo = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([os.path.join(
@@ -31,11 +40,23 @@ def generate_launch_description():
     
     joint_broad = Node(package='controller_manager', executable='spawner',
                          arguments=['joint_broad'])
+    
+    rviz_config_file = os.path.join(share_dir, 'config', 'display.rviz')
+
+    rviz_node = Node(
+        package='rviz2',
+        executable='rviz2',
+        name='rviz2',
+        arguments=['-d', rviz_config_file],
+        output='screen'
+    )
 
     return LaunchDescription([
         robot_state_publisher,
         gazebo,
         spawn_entity,
-        mecanum_drive,
-        joint_broad
+        rviz_node,
+        joint_state_publisher_node
+        # mecanum_drive,
+        # joint_broad
     ])
