@@ -27,13 +27,14 @@ def generate_launch_description():
         'camera_info_topic':'/camera/camera_info',
         'depth_topic':'/camera/depth/image_raw',
         'rgb_topic':'/camera/image_raw',
-        'publish_tf':'False',
+        # 'publish_tf':'False',
         'queue_size':'20',
         'RGBD/Octomap':'True',
         'Mem/SaveDepth16Format':"true",
         'Grid/Sensor':'1',
         'publish_tf_odom':'False',
-        'odom_topic':'/odom',
+        'map_topic':'/map',
+        'odom_frame_id':'odom',
         'localization':localization
     }
     

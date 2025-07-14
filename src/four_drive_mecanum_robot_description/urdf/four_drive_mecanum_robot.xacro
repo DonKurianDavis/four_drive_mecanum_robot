@@ -164,6 +164,7 @@
 </joint>
 
 <link name="camera_color_frame"></link>
+<link name="base_footprint"></link>
 
 <joint name="front_left_joint" type="continuous">
   <origin xyz="0.254962 0.195438 -0.063172" rpy="0 0 0"/>
@@ -204,6 +205,12 @@
   <origin xyz="0.074 0.0475 0.164407" rpy="0 0 0"/>
   <parent link="base_link"/>
   <child link="camera_link"/>
+</joint>
+
+<joint name="base_footprint_joint" type="fixed">
+  <origin xyz="0.0 0.0 -0.166" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="base_footprint"/>
 </joint>
 
 </robot>
